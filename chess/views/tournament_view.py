@@ -6,9 +6,10 @@ class TournamentView:
     @classmethod
     def display_list(cls, tournaments):
         table = Texttable()
-        table.header(["Id", "Name", "Location", "Start Date", "Number Of Rounds", "Number of players"])
+        table.header(["Id", "Name", "Location", "Start Date", "End Date", "Number Of Rounds", "Number of players"])
         for tournament in tournaments:
-            table.add_row([tournament.id, tournament.name, tournament.location, tournament.start_date, tournament.number_of_rounds,
+            table.add_row([tournament.id, tournament.name, tournament.location, tournament.start_date,
+                           tournament.end_date, tournament.number_of_rounds,
                            tournament.number_of_players])
 
         print(table.draw())
@@ -42,6 +43,28 @@ class TournamentView:
             print("\tStart date: Not started yet")
         if tournament.end_date:
             print(f"\tEnd date: {tournament.end_date}")
+        if tournament.list_of_players:
+            print(f"\tPlayers list: ", end="")
+            new_players_list = sorted(tournament.list_of_players, key=lambda player: player.name)
+            for player in new_players_list:
+                print(f"{player.name}", end=", ")
+        if tournament.rounds_list:
+            print("\n")
+            for round in tournament.rounds_list:
+                print(f"\t{round.name} :")
+                for i, game in enumerate(round.list_games, start=1):
+                    if not game.isFinished:
+                        print(f"\t\tmatch {i} : {game.player_1.name} contre {game.player_2.name}")
+                    else:
+                        if game.score_player_1 > game.score_player_2:
+                            print(f"\t\tmatch {i} : {game.player_1.name} contre {game.player_2.name} -> Winner :"
+                                  f" {game.player_1.name}")
+                        elif game.score_player_2 > game.score_player_1:
+                            print(f"\t\tmatch {i} : {game.player_1.name} contre {game.player_2.name} -> Winner :"
+                                  f" {game.player_2.name}")
+                        else:
+                            print(f"\t\tmatch {i} : {game.player_1.name} contre {game.player_2.name} -> Winner : DRAW")
+
         print("\nQ. Exit")
         print("L. Return To Tournaments list")
         print("H. Homepage")
@@ -120,6 +143,7 @@ class TournamentView:
                         for i, game in enumerate(round.list_games, start=1):
                             if not game.isFinished:
                                 print(f"{i}: Entrer le resultat du match {i}")
+                        print("Q. Exit")
                         return input("Choice: ")
                     else:
                         if not tournament.current_round_number == int(tournament.number_of_rounds):

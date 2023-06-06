@@ -13,15 +13,14 @@ class Store:
                 Player(1, "Pablo", 36, "test@test.com"),
                 Player(2, "Michel", 40, "test@test.com"),
                 Player(3, "Moustafa", 23, "test@test.com"),
-                Player(4, "sofian", 26, "test@test.com"),
-                Player(5, "gregory", 56, "test@test.com"),
+                Player(4, "Sofian", 26, "test@test.com"),
+                Player(5, "Gregory", 56, "test@test.com"),
                 Player(6, "Mathieu", 60, "test@test.com"),
-                Player(7, "jean", 30, "test@test.com"),
-                Player(8, "mehdi", 40, "test@test.com"),
+                Player(7, "Jean", 30, "test@test.com"),
+                Player(8, "Mehdi", 40, "test@test.com"),
 
             ]
 
-    # save data to json file
     def save(self):
         pass
 
@@ -38,5 +37,6 @@ class Store:
 
     def create_tournament(self, tournament_data):
         tournament_data["id"] = int(tournament_data["id"])
+        tournament_data["number_of_rounds"] = int(tournament_data["number_of_rounds"])
         tournament = Tournament(**tournament_data)
         self.tournaments.append(tournament)

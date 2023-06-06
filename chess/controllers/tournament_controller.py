@@ -6,7 +6,8 @@ class TournamentController:
     @classmethod
     def list(cls, store, route_params=None):
         choice, tournament_id = TournamentView.display_list(store.tournaments)
-        tournament = store.search_tournament(tournament_id)
+        if tournament_id:
+            tournament = store.search_tournament(tournament_id)
 
         if choice == "1":
             return "view_tournament", tournament_id
@@ -97,6 +98,11 @@ class TournamentController:
                             for i, game in enumerate(round.list_games, start=1):
                                 if choice == f"{i}" and not game.isFinished:
                                     return "set_games_result", {"tournament": tournament.id, "game": game}
+                                if choice.lower() == 'q':
+                                    return "list_tournament", None
+                            if choice:
+                                print("invalid choice")
+                                return "set_rounds_tournament", tournament.id
                         else:
                             round.end_round()
                             choice = TournamentView.set_rounds(tournament)

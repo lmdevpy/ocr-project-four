@@ -41,9 +41,9 @@ class Tournament:
 
     def set_other_rounds(self):
         self.sort_players_by_point()
-        for i in range(len(self.rounds_list) + 1):
-            if not Round(f"round {i}") in self.rounds_list:
-                new_round = Round(f"round {i}")
+        for i in range(2, self.number_of_rounds + 1):
+            new_round = Round(f"round {i}")
+            if not self.is_round_present(new_round):
                 pairs = list(combinations(self.list_of_players, 2))
                 used_players = []
                 for player_1, player_2 in pairs:
@@ -62,4 +62,8 @@ class Tournament:
     def sort_players_by_point(self):
         self.list_of_players = sorted(self.list_of_players, key=lambda player: player.score, reverse=True)
 
-
+    def is_round_present(self, new_round):
+        for round in self.rounds_list:
+            if round.name == new_round.name:
+                return True
+        return False

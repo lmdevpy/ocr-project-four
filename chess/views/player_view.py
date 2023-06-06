@@ -7,8 +7,9 @@ class PlayerView:
     def display_list(cls, players):
         table = Texttable()
         table.header(["Id", "Name", "age", "email"])
-        for player in players:
-            table.add_row([player.id, player.name, player.age, player.email])
+        players_new_list = sorted(players, key=lambda player: player.name)
+        for player in players_new_list:
+            table.add_row([player.name, player.id, player.age, player.email])
         print(table.draw())
 
         print("1. View Player")
