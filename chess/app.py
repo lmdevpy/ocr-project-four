@@ -20,7 +20,6 @@ class Application:
         "edit_player": PlayerController.edit,
         "new_player": PlayerController.create,
         "view_player": PlayerController.view,
-        "delete_player": PlayerController.delete,
         "error_page": TournamentController.error_page
     }
 
@@ -34,7 +33,6 @@ class Application:
         while not self.exit:
             # Clear the shell output
             sp.call('clear', shell=True)
-
             # Get the controller method that should handle our current route
             controller_method = self.routes[self.route]
 

@@ -13,8 +13,6 @@ class PlayerController:
             return "edit_player", player_id
         elif choice == "3":
             return "new_player", None
-        elif choice == "4":
-            return "delete_player", player_id
         elif choice.lower() == "q":
             return "quit", None
         elif choice.lower() == "h":
@@ -27,7 +25,6 @@ class PlayerController:
         # call the view that will return us a dict with the new player info
         data = PlayerView.create_player()
         store.create_player(data)
-
         return "list_player", None
 
     @classmethod
@@ -37,15 +34,8 @@ class PlayerController:
         # call the view that will return us a dict with the new player info
         data = PlayerView.edit_player(player)
         player.update(data)
+        store.update_json_data_file()
 
-        return "list_player", None
-
-    @classmethod
-    def delete(cls, store, route_params):
-        # remove the player from the store
-        store.players = [
-            p for p in store.players if p.id != route_params
-        ]
         return "list_player", None
 
     @classmethod

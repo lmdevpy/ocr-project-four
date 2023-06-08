@@ -45,14 +45,18 @@ class TournamentView:
             print(f"\tEnd date: {tournament.end_date}")
         if tournament.list_of_players:
             print(f"\tPlayers list: ", end="")
-            new_players_list = sorted(tournament.list_of_players, key=lambda player: player.name)
+            new_players_list = sorted(tournament.list_of_players, key=lambda p: p.name)
             for player in new_players_list:
                 print(f"{player.name}", end=", ")
+        if tournament.final_ranking:
+            print(f"\n\tFinal ranking: ", end="")
+            for i, player in enumerate(tournament.final_ranking, start=1):
+                print(f"{i}: (name:{player.name} score: {player.scores[tournament.id]}),", end=" ")
         if tournament.rounds_list:
             print("\n")
             for round in tournament.rounds_list:
                 print(f"\t{round.name} :")
-                for i, game in enumerate(round.list_games, start=1):
+                for i, game in enumerate(round.games_list, start=1):
                     if not game.isFinished:
                         print(f"\t\tmatch {i} : {game.player_1.name} contre {game.player_2.name}")
                     else:
@@ -105,7 +109,7 @@ class TournamentView:
 
         list_players = []
 
-        for i in range(1, tournament.number_of_players+1):
+        for i in range(1, int(tournament.number_of_players)+1):
             player_id = int(input(f'Enter ID player {i}: '))
             list_players.append(player_id)
 
@@ -127,7 +131,7 @@ class TournamentView:
             for round in tournament.rounds_list:
                 if round.round_number == tournament.current_round_number:
                     if not round.end_date:
-                        for i, game in enumerate(round.list_games, start=1):
+                        for i, game in enumerate(round.games_list, start=1):
                             if not game.isFinished:
                                 print(f"match {i} : {game.player_1.name} contre {game.player_2.name}")
                             else:
@@ -140,7 +144,7 @@ class TournamentView:
                                 else:
                                     print(f"match {i} : {game.player_1.name} contre {game.player_2.name} -> Winner : DRAW")
                         print("\n")
-                        for i, game in enumerate(round.list_games, start=1):
+                        for i, game in enumerate(round.games_list, start=1):
                             if not game.isFinished:
                                 print(f"{i}: Entrer le resultat du match {i}")
                         print("Q. Exit")
