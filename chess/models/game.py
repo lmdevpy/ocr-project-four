@@ -10,6 +10,7 @@ class Game:
         self.isFinished = False
 
     def to_dict(self):
+        # Create a dict from the game object for the json file
         return {
             "player_1": self.player_1.to_dict(),
             "player_2": self.player_2.to_dict(),
@@ -20,6 +21,7 @@ class Game:
 
     @classmethod
     def from_dict(cls, data):
+        # create a Game object from a dict (json to class)
         player_1_data = data.pop("player_1", {})  # Extraire les données du joueur 1
         player_2_data = data.pop("player_2", {})  # Extraire les données du joueur 2
         game = cls.__new__(cls)
@@ -30,7 +32,9 @@ class Game:
         return game
 
     def __eq__(self, other):
+        # How it will Compare two objects of that class for equality using == operator.
         if isinstance(other, Game):
+            # Here we compare if the 2 parameters are equal for both class
             if self.player_1 == other.player_1 and self.player_2 == other.player_2 or \
                     self.player_1 == other.player_2 and self.player_2 == other.player_1:
                 return True

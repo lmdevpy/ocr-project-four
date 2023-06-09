@@ -7,11 +7,12 @@ import json
 class Store:
 
     def __init__(self):
-        self.tournaments = []
-        self.players = []
-        self.initialized = False
+        self.tournaments = [] # List to store Tournament objects
+        self.players = []  # List to store Player objects
+        self.initialized = False  # to track if the data has been initialized
 
     def initialize_json_data(self):
+        # initialize the data from a JSON file or create a new JSON file if it doesn't exist
         file_path = "data_tournaments.json"
         if os.path.isfile(file_path):
             if not self.initialized:
@@ -31,6 +32,7 @@ class Store:
             self.initialized = True
 
     def update_json_data_file(self):
+        # Update the JSON data file with the current data in the Store
         list_of_tournaments_dict = [tournament.to_dict() for tournament in self.tournaments]
         list_of_players_dict = [player.to_dict() for player in self.players]
         data = {'tournaments': list_of_tournaments_dict, 'players': list_of_players_dict}
@@ -38,7 +40,7 @@ class Store:
             json.dump(data, file, indent=4)
 
     def read_json_file(self):
-
+        # Read the JSON data file and initialize the Store with the data
         with open('data_tournaments.json', 'r') as file:
             data = json.load(file)
         tournaments_data = data['tournaments']

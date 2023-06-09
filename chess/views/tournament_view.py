@@ -3,6 +3,7 @@ from texttable import Texttable
 
 class TournamentView:
 
+    # display a list of the tournaments
     @classmethod
     def display_list(cls, tournaments):
         table = Texttable()
@@ -28,6 +29,7 @@ class TournamentView:
 
         return choice, extra_info
 
+    # Display details of the tournament
     @classmethod
     def detail_tournament(cls, tournament):
         print(f"\n\tId: {tournament.id}")
@@ -44,12 +46,12 @@ class TournamentView:
         if tournament.end_date:
             print(f"\tEnd date: {tournament.end_date}")
         if tournament.list_of_players:
-            print(f"\tPlayers list: ", end="")
+            print("\tPlayers list: ", end="")
             new_players_list = sorted(tournament.list_of_players, key=lambda p: p.name)
             for player in new_players_list:
                 print(f"{player.name}", end=", ")
         if tournament.final_ranking:
-            print(f"\n\tFinal ranking: ", end="")
+            print("\n\tFinal ranking: ", end="")
             for i, player in enumerate(tournament.final_ranking, start=1):
                 print(f"{i}: (name:{player.name} score: {player.scores[tournament.id]}),", end=" ")
         if tournament.rounds_list:
@@ -98,6 +100,7 @@ class TournamentView:
             print("N. No")
             return input("Choice:")
 
+    # Add players to the tournament
     @classmethod
     def add_players(cls, players, tournament):
 
@@ -115,6 +118,7 @@ class TournamentView:
 
         return list_players
 
+    # Display the full round of the tournament from the beginning to the end
     @classmethod
     def set_rounds(cls, tournament):
         print(f"\n\tTournament name: {tournament.name}")
@@ -122,7 +126,7 @@ class TournamentView:
         print(f"\tNumber of players: {tournament.number_of_players}")
         print(f"\tNumber of rounds: {tournament.number_of_rounds}")
         if not tournament.current_round_number:
-            print(f"\n\tCurrent round: Tournament has not started yet")
+            print("\n\tCurrent round: Tournament has not started yet")
             print("\n1. Start the first round")
             print("2. return to home page")
             return input("\nChoice:")
@@ -142,7 +146,8 @@ class TournamentView:
                                     print(f"match {i} : {game.player_1.name} contre {game.player_2.name} -> Winner :"
                                           f" {game.player_2.name}")
                                 else:
-                                    print(f"match {i} : {game.player_1.name} contre {game.player_2.name} -> Winner : DRAW")
+                                    print(f"match {i} : {game.player_1.name} contre {game.player_2.name}"
+                                          " -> Winner : DRAW")
                         print("\n")
                         for i, game in enumerate(round.games_list, start=1):
                             if not game.isFinished:
@@ -151,7 +156,7 @@ class TournamentView:
                         return input("Choice: ")
                     else:
                         if not tournament.current_round_number == int(tournament.number_of_rounds):
-                            print(f"Lancer le prochain round ?")
+                            print("Lancer le prochain round ?")
                             print("press y for yes")
                             print("press n for No and quit")
                             return input("Choice: ")
@@ -159,14 +164,15 @@ class TournamentView:
                             print("TOURNAMENT FINISHED !")
                             input("Press Enter to continue")
 
-
+    # Set the result of a game in a round
     @classmethod
     def set_games_result(cls, game):
         print(f'1. {game.player_1.name} win')
         print(f'2. {game.player_2.name} win')
-        print(f'3. draw')
+        print('3. draw')
         return input("Choice: ")
 
+    # isplay an error
     @classmethod
     def error_page(cls, message):
         print(message)

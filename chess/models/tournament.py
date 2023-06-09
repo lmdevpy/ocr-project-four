@@ -22,6 +22,7 @@ class Tournament:
         self.description = description
 
     def to_dict(self):
+        # Convert the Tournament object to a dictionary for the json file
         return {
             "id": self.id,
             "name": self.name,
@@ -39,6 +40,7 @@ class Tournament:
 
     @classmethod
     def from_dict(cls, data):
+        # Convert a dict to a tournament object (json to instance)
         players_data = data.pop("list_of_players", [])
         rounds_data = data.pop("rounds_list", [])
         rank_data = data.pop("final_ranking", [])
@@ -51,15 +53,18 @@ class Tournament:
         return tournament
 
     def start_tournament(self):
+        # Set the start date of the tournament and initialize the first round
         self.start_date = datetime.now().strftime("%d/%m/%Y %H:%M")
         self.current_round_number = 1
 
     def end_tournament(self):
+        # Set the end date of the tournament and mark it as finished
         self.end_date = datetime.now().strftime("%d/%m/%Y %H:%M")
         self.current_round_number = "Tournament finished"
         self.final_ranking = sorted(self.list_of_players, key=lambda player: player.scores[self.id], reverse=True)
 
-    def set_first_round_matches(self):
+    def set_first_round_games(self):
+        # create the first round and set the games for the first round
         randomized_player_list = random.sample(self.list_of_players, len(self.list_of_players))
         round_1 = Round("round 1")
         for i in range(0, len(randomized_player_list), 2):
@@ -72,6 +77,7 @@ class Tournament:
         self.rounds_list.append(round_1)
 
     def set_other_rounds(self):
+        # create the following rounds and Set the games
         self.sort_players_by_point()
         for i in range(2, int(self.number_of_rounds) + 1):
             new_round = Round(f"round {i}")
@@ -94,6 +100,7 @@ class Tournament:
         self.list_of_players = sorted(self.list_of_players, key=lambda player: player.scores[self.id], reverse=True)
 
     def is_round_present(self, new_round):
+        # Check if a round with the same name is already present in the tournament
         for round in self.rounds_list:
             if round.name == new_round.name:
                 return True

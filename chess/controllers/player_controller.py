@@ -5,6 +5,7 @@ class PlayerController:
 
     @classmethod
     def list(cls, store, route_params=None):
+        # Display the list of players and get the user choice with the player id
         choice, player_id = PlayerView.display_list(store.players)
 
         if choice == "1":
@@ -22,7 +23,6 @@ class PlayerController:
 
     @classmethod
     def create(cls, store, route_params=None):
-        # call the view that will return us a dict with the new player info
         data = PlayerView.create_player()
         store.create_player(data)
         return "list_player", None
@@ -31,7 +31,6 @@ class PlayerController:
     def edit(cls, store, route_params):
 
         player = store.search_player(route_params)
-        # call the view that will return us a dict with the new player info
         data = PlayerView.edit_player(player)
         player.update(data)
         store.update_json_data_file()
@@ -40,10 +39,6 @@ class PlayerController:
 
     @classmethod
     def view(cls, store, route_params):
-        """
-        Display one single player, the route_params correspond to the player ID
-        we want to display
-        """
 
         # import pdb;pdb.set_trace()
         player = store.search_player(route_params)

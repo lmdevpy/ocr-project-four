@@ -11,6 +11,7 @@ class Round:
         self.games_list = []
 
     def to_dict(self):
+        # Convert the Round object to a dictionary for the json file
         return {
             "name": self.name,
             "round_number": self.round_number,
@@ -21,6 +22,7 @@ class Round:
 
     @classmethod
     def from_dict(cls, data):
+        # create a Round object from a dict (json to class)
         games_data = data.pop("games_list", [])
         round = cls.__new__(cls)
         for key, value in data.items():
@@ -35,8 +37,8 @@ class Round:
         self.end_date = datetime.now().strftime("%d/%m/%Y %H:%M")
 
     def has_played_together(self, game):
+        # Check if the given game has already been played in the round
         for other_game in self.games_list:
             if other_game == game:
                 return True
         return False
-

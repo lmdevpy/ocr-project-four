@@ -1,6 +1,7 @@
 class HomeView:
 
     @classmethod
+    # Method to display the Home Menu
     def home(cls):
         print("Welcome\n")
         print("1. List Players")

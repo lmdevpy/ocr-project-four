@@ -1,18 +1,44 @@
-Python 3 needed
+# Projet-4 Utilisez les bases de Python pour l'analyse de marché
 
-# Install
+## Prérequis
+- Python 3
+- Git.
 
-- clone this repository
+## Récupérer le projet :
+```sh
+git clone https://github.com/lmdevpy/ocr-project-four.git
+```
 
-# Launch
+## Création de l'environnement virtuel
 
-```shell
+```sh
+python -m venv env
+```
+
+## Activation de l'environnement virtuel
+
+Une fois l'environnement virtuel créé, vous pouvez l'activer.
+Sur Windows, lancez :
+```sh
+env\Scripts\activate.bat
+```
+Sur Unix et MacOS, lancez :
+```sh
+source env/bin/activate
+```
+
+## Il faudra ensuite installer les dépendences necessaires au script:
+```sh
+pip install -r requirements.txt
+```
+
+## lancer l'application à la racine du projet:
+```sh
 python -m chess
 ```
 
-# Ideas to practice
 
-- Create an "edit players" function
-- Load the players from an external file instead of hard-coded them
-- Validate data when creating a new player
-- Displaying error messages when viewing or deleting a user that does not exists on the store
+## Générer un rapport avec FLAKE8:
+```sh
+flake8 chess --format=html --htmldir=flake8_rapport  --max-line-length=119 
+```

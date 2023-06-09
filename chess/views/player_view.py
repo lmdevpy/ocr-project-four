@@ -3,6 +3,7 @@ from texttable import Texttable
 
 class PlayerView:
 
+    # Method to display a list of the players
     @classmethod
     def display_list(cls, players):
         table = Texttable()
@@ -26,6 +27,7 @@ class PlayerView:
 
         return choice, extra_info
 
+    # Method to display the details of a player
     @classmethod
     def detail_player(cls, player):
         print(f"Id: {player.id}")
@@ -39,6 +41,7 @@ class PlayerView:
         print("H. Homepage")
         return input("Choice:")
 
+    # Method to insert the datas of a player to create
     @classmethod
     def create_player(cls):
         return {
@@ -48,6 +51,7 @@ class PlayerView:
             "email": input("Enter an email: ")
         }
 
+    # method to edit the datas of a player already created
     @classmethod
     def edit_player(cls, player):
         return {

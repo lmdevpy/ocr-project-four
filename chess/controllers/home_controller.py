@@ -5,8 +5,9 @@ class HomePageController:
 
     @classmethod
     def dispatch(cls, store, input=None):
+        # Display the home page and get the user choice
         choice = HomeView.home()
-        store.initialize_json_data()
+        store.initialize_json_data()  # Initialize the JSON data if needed
         if choice.lower() == "q":
             next = "quit"
         elif choice == "1":
